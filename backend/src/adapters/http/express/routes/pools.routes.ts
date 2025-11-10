@@ -29,11 +29,9 @@ export function createPoolsRouter(poolRepository: PoolRepository): Router {
           pools = await poolRepository.findByShipId(shipId as string);
         } else if (status) {
           pools = await poolRepository.findByStatus(status as any);
-        } else if (status === 'ACTIVE' || !status) {
+        } else {
           // Default to active pools if no status specified
           pools = await poolRepository.findActivePools();
-        } else {
-          pools = await poolRepository.findAll();
         }
 
         res.json({ pools });
